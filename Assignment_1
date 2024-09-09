@@ -1,0 +1,69 @@
+import 'dart:math';
+
+// List to store committees
+List<Map<String, String>> committees = [];
+
+// List to store members
+List<Map<String, String>> members = [];
+
+// List to store user credentials
+List<Map<String, String>> users = [];
+
+// Function to generate a random ID
+String generateId() {
+  var rng = Random();
+  return rng.nextInt(10000).toString(); // Random integer between 0 and 9999
+}
+
+// Function to generate a random password
+String generatePassword() {
+  var rng = Random();
+  const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  return List.generate(8, (index) => chars[rng.nextInt(chars.length)]).join();
+}
+
+// Function to create a committee
+void createCommittee(String name, String price, String requiredMembers) {
+  String committeeId = generateId();
+  String password = generatePassword();
+  
+  committees.add({
+    'id': committeeId,
+    'name': name,
+    'price': price,
+    'requiredMembers': requiredMembers
+  });
+
+  users.add({
+    'committeeId': committeeId,
+    'password': password
+  });
+
+  print("Committee '$name' created with ID: $committeeId and Password: $password");
+}
+
+// Function to add a member
+void addMember(String committeeId, String name, String phone, String email) {
+  String memberId = generateId();
+  
+  members.add({
+    'id': memberId,
+    'name': name,
+    'phone': phone,
+    'email': email,
+    'committeeId': committeeId
+  });
+
+  print("Member '$name' added to committee ID: $committeeId");
+}
+
+// Main function to test the implementation
+void main() {
+  // Create some sample committees
+  createCommittee('Tech Club', '500', '5');
+  createCommittee('Art Society', '300', '3');
+
+  // Add some sample members
+  addMember('1', 'Alice', '123-456-7890', 'alice@example.com');
+  addMember('2', 'Bob', '987-654-3210', 'bob@example.com');
+}  
